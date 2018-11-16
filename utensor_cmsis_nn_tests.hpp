@@ -2,7 +2,6 @@
 #define UTENSOR_CMSIS_NN_TESTS
 #include "uTensor/core/tensor.hpp"
 #include "uTensor/core/context.hpp"
-#include "uTensor/ops/cmsis_ops/supportOps.hpp"
 #include "arm_math.h"
 
 template <typename T>
@@ -14,5 +13,6 @@ Tensor* singular_tensor(T val) {
 }
 
 void uint8_to_q7_origin_test();
+void cmsis_fc_matmul_test();
 
 #endif

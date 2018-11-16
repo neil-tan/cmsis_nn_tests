@@ -1,5 +1,6 @@
 
 #include "utensor_cmsis_nn_tests.hpp"
+#include "uTensor/ops/cmsis_ops/supportOps.hpp"
 
 void uint8_to_q7_origin_test() {
   Tensor* input_x = new RamTensor<uint8_t>({1, 256});
