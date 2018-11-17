@@ -3,6 +3,8 @@
 #include "utensor_cmsis_nn_tests.hpp"
 #include "uTensor/ops/cmsis_ops/FullyConnectedOps.hpp"
 
+//Check FullyConnectedOps.hpp:314
+
 const uint16_t inline_cmsis_bShift_2_0_test [ 1 ] = {  0,  };
 const uint16_t inline_cmsis_oShift_2_0_test [ 1 ] = {  0,  };
 const q7_t pM[16] = {16,    5,    9,    4,
