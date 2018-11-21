@@ -82,7 +82,7 @@ void get_deep_mlp1_ctx(Context& ctx, Tensor* input_0) {
     ctx.eval();
 }
 {
-    ctx.add(new RamTensor<int8_t>(), "MatMul_eightbit/x__port__0/quantize_q7:0", 2);
+    ctx.add(new RamTensor<int8_t>(), "MatMul_eightbit/x__port__0/quantize_q7:0", 2 + 1);
     ctx.push(new Uint8Q7OriginOp(),
              { "MatMul_eightbit/x__port__0/quantize:0", "MatMul_eightbit/x__port__0/quantize:1", "MatMul_eightbit/x__port__0/quantize:2" }, 
              { "MatMul_eightbit/x__port__0/quantize_q7:0" });
@@ -106,7 +106,7 @@ void get_deep_mlp1_ctx(Context& ctx, Tensor* input_0) {
             2);
 }
 {
-    ctx.add(new RamTensor<int8_t>(), "Variable_quantized_const_q7:0", 1);
+    ctx.add(new RamTensor<int8_t>(), "Variable_quantized_const_q7:0", 1 + 1);
     ctx.push(new Uint8Q7OriginOp(),
              { "Variable_quantized_const:0", "Variable_quantized_min:0", "Variable_quantized_max:0" }, 
              { "Variable_quantized_const_q7:0" });
@@ -129,20 +129,14 @@ void get_deep_mlp1_ctx(Context& ctx, Tensor* input_0) {
 }
 {
 
-    ctx.add(new RamTensor<int>(), "MatMul/eightbit:0", 2);
+    ctx.add(new RamTensor<int>(), "MatMul/eightbit:0", 2 + 1);
     
     ctx.push(new FullyConnectedLayerCmsisOp<int>(),
               { "MatMul_eightbit/x__port__0/quantize_q7:0", "Variable_quantized_const_q7:0", "MatMul_eightbit/x__port__0/quantize_q7:0", "cmsis_bShift_2:0", "cmsis_oShift_2:0", "cmsis_scratch_2:0" },
               { "MatMul/eightbit:0" });
-
-    S_TENSOR matmul_tensor = ctx.get("MatMul/eightbit:0");
-    S_TENSOR input_v = ctx.get("MatMul_eightbit/x__port__0/quantize_q7:0");
     ctx.eval();
 
     printf("\r\n");
-    //print_tensor_d<int8_t>(input_v);
-    print_tensor_d<int>(matmul_tensor);
-    
 }
 {
     ctx.add(new RamTensor<int>({1}), "MatMul/eightbit:1", 2);
