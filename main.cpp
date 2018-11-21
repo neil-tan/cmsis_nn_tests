@@ -17,6 +17,7 @@
 //             "Variable_quantized_min:0", 
 //             2);
 //TODO: ref count for tensor produced by QuantRangeForMultiplicationu8u8int32Op
+//TODO: check the correct template specialization are used for QuantRangeForMultiplicationu8u8int32Op
 
 
 Serial pc(USBTX, USBRX, 115200);
@@ -25,10 +26,10 @@ Serial pc(USBTX, USBRX, 115200);
 void run_mlp(){
 
   Tensor* input_x = new RamTensor<float>({1, 784});
-  float* in_buff = input_x->write<float>(0, 1);
   
   for(int i = 0; i < 784; i++) {
-    in_buff[0] = (float) i;
+    float* in_buff = input_x->write<float>(i, 1);
+    *in_buff = ((float) i) / 784;
   }
 
   Context ctx;
