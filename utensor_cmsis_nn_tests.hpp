@@ -15,5 +15,6 @@ Tensor* singular_tensor(T val) {
 void uint8_to_q7_origin_test();
 void cmsis_fc_matmul_test();
 void mlp_test();
+void cmsis_fc_matmul_raw_test();
 
 #endif

@@ -10,7 +10,8 @@ int main(void) {
 
   //uint8_to_q7_origin_test();
   //mlp_test();
-  cmsis_fc_matmul_test();
+  //cmsis_fc_matmul_test();
+  cmsis_fc_matmul_raw_test();
 
   return 0;
 }
