@@ -27,7 +27,7 @@ void cmsis_fc_matmul_test() {
   ctx.add(new BinaryTensor<q7_t>({4, 4}, pM), "pM"); //matrix
 
   //activation from the previous layer, aka. vector
-  ctx.add(new BinaryTensor<q7_t>({1, 4}, pV), "pV");
+  ctx.add(new BinaryTensor<q7_t>({4, 1}, pV), "pV");
 
   ctx.add(new BinaryTensor<uint16_t>({1}, inline_cmsis_bShift_2_0_test), 
           "cmsis_bShift_2:0", 
@@ -37,7 +37,7 @@ void cmsis_fc_matmul_test() {
           "cmsis_oShift_2:0", 
           1);
 
-  ctx.add(new RamTensor<uint16_t>({1,4}), 
+  ctx.add(new RamTensor<uint16_t>({4,1}), 
           "cmsis_scratch_2:0", 
           1);
 
