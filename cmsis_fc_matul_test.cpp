@@ -17,6 +17,7 @@ const q7_t pM[16] = {16,    5,    9,    4,
 //                      0,   0,   0,   0,
 //                      0,   0,   0,   0};
 const q7_t pV[4] = {10, 20, 30, 40};
+const q7_t bias[4] = {0, 0, 0, 0};
 //const q7_t pV[4] = {0,0,0,0};
 
 
@@ -28,6 +29,7 @@ void cmsis_fc_matmul_test() {
 
   //activation from the previous layer, aka. vector
   ctx.add(new BinaryTensor<q7_t>({4, 1}, pV), "pV");
+  ctx.add(new BinaryTensor<q7_t>({4, 1}, bias), "bias");
 
   ctx.add(new BinaryTensor<uint16_t>({1}, inline_cmsis_bShift_2_0_test), 
           "cmsis_bShift_2:0", 
@@ -46,7 +48,7 @@ void cmsis_fc_matmul_test() {
 
   ctx.push(new FullyConnectedLayerCmsisOp<int>(),
             { "pV", "pM",
-              "pV", "cmsis_bShift_2:0", "cmsis_oShift_2:0",
+              "bias", "cmsis_bShift_2:0", "cmsis_oShift_2:0",
               "cmsis_scratch_2:0" },
             { "MatMul/eightbit:0" });
 

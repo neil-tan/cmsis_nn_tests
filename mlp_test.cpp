@@ -43,8 +43,10 @@ void mlp_test() {
   Context ctx_ref;
 
   get_deep_mlp1_ctx(ctx, gen_input());
+  ctx.eval();
   get_deep_mlp1_ref_ctx(ctx_ref, gen_input());  //reference
-  
+  ctx_ref.eval();
+
   //comparing intermediate value
   S_TENSOR matmul = ctx.get("MatMul/eightbit:0");
   S_TENSOR pV = ctx.get("MatMul_eightbit/x__port__0/quantize_q7:0"); //pV
@@ -59,8 +61,7 @@ void mlp_test() {
   print_tensor_shape(pV_ref);
   print_tensor_shape(m_W_ref);
 
-  // TODO：MatMul shape compute is incorrect
-  // Need to check v * M vs M * v
+  // TODO: Need to check v * M vs M * v
 
 
   printf("shape of matmul: ");
@@ -72,16 +73,16 @@ void mlp_test() {
   double mean_error = meanPercentErr<int>(matmul_ref.get(), matmul.get());
   printf("mean percent error between matmul and matmul_ref is : %f\r\n", mean_error);
 
-  //prediction result
-  S_TENSOR pred_tensor = ctx.get("y_pred:0");
-  ctx.eval();
-  S_TENSOR pred_ref_tensor = ctx_ref.get("y_pred:0");
-  ctx_ref.eval();
+  // //prediction result
+  // S_TENSOR pred_tensor = ctx.get("y_pred:0");
+  // ctx.eval();
+  // S_TENSOR pred_ref_tensor = ctx_ref.get("y_pred:0");
+  // ctx_ref.eval();
 
-  int pred_label = *(pred_tensor->read<int>(0, 0));
-  printf("Predicted label: %d\r\n", pred_label);
+  // int pred_label = *(pred_tensor->read<int>(0, 0));
+  // printf("Predicted label: %d\r\n", pred_label);
 
-  int ref_pred_label = *(pred_ref_tensor->read<int>(0, 0));
-  printf("Predicted ref label: %d\r\n", ref_pred_label);
+  // int ref_pred_label = *(pred_ref_tensor->read<int>(0, 0));
+  // printf("Predicted ref label: %d\r\n", ref_pred_label);
 
 }
