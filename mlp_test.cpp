@@ -44,8 +44,6 @@ void mlp_test() {
 
   get_deep_mlp1_ctx(ctx, gen_input());
   ctx.eval();
-  get_deep_mlp1_ref_ctx(ctx_ref, gen_input());  //reference
-  ctx_ref.eval();
 
   //comparing intermediate value
   S_TENSOR matmul = ctx.get("MatMul/eightbit:0");
@@ -54,6 +52,10 @@ void mlp_test() {
   print_tensor_shape(pV);
   print_tensor_shape(m_W);
 
+  printf("\r\n==========================\r\n");
+
+  get_deep_mlp1_ref_ctx(ctx_ref, gen_input());  //reference
+  ctx_ref.eval();
 
   S_TENSOR matmul_ref = ctx_ref.get("MatMul/eightbit:0");
   S_TENSOR pV_ref = ctx_ref.get("MatMul_eightbit/x__port__0/quantize:0"); //pV
@@ -64,11 +66,11 @@ void mlp_test() {
   // TODO: Need to check v * M vs M * v
 
 
-  printf("shape of matmul: ");
-  printVector(matmul->getShape());
-  printf("shape of matmul_ref: ");
-  printVector(matmul_ref->getShape());
-  printf("\r\n");
+  // printf("shape of matmul: ");
+  // printVector(matmul->getShape());
+  // printf("shape of matmul_ref: ");
+  // printVector(matmul_ref->getShape());
+  // printf("\r\n");
 
   double mean_error = meanPercentErr<int>(matmul_ref.get(), matmul.get());
   printf("mean percent error between matmul and matmul_ref is : %f\r\n", mean_error);

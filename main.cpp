@@ -25,6 +25,8 @@ Serial pc(USBTX, USBRX, 115200);
 int main(void) {
   printf("Simple MNIST end-to-end CMSIS-NN uTensor cli playground (device)\n");
 
+//TODO: clean up and print the right matmul data from the model file
+
   //uint8_to_q7_origin_test();
   mlp_test();
   // cmsis_fc_matmul_test();
